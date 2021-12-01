@@ -16,13 +16,12 @@ const colorReducer = (state, action) => {
 };
 
 function App() {
-  const [colorState, colorDispatch] = useReducer(colorReducer, initialColor); // same useReducer to update the color
+  const [colorState, colorDispatch] = useReducer(colorReducer, initialColor); 
 
   return (
     <div className="App" style={ {backgroundColor:colorState.color} }>
       <div className="head" >
         <h1>Change the Background Color..!!</h1>
-      {/* dispatch(action) */}
 
       <input id="colorInput" placeholder="Enter a color..!" type="text"
       onChange={(event) => colorDispatch({ type: "changeColor", currentColor:event.target.value })}/>
