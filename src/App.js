@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { useReducer } from "react";
+
+const initialColor={color:"green"};
+
+const colorReducer = (state, action) => {
+  switch (action.type) {
+    case "changeColor":
+      // store updated
+      return { color: action.currentColor };
+      case "reset":
+        return{color:action.payload};
+    default:
+      return state;
+  }
+};
 
 function App() {
+  const [colorState, colorDispatch] = useReducer(colorReducer, initialColor); // same useReducer to update the color
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={ {backgroundColor:colorState.color} }>
+      <div className="head" >
+        <h1>Change the Background Color..!!</h1>
+      {/* dispatch(action) */}
+
+      <input id="colorInput" placeholder="Enter a color..!" type="text"
+      onChange={(event) => colorDispatch({ type: "changeColor", currentColor:event.target.value })}/>
+     <br/>
+      <button onClick={() => colorDispatch({ type: "reset", payload: "white" })}>
+        Reset
+      </button>
+      </div>
     </div>
   );
 }
